@@ -25,6 +25,7 @@ define(function(require, exports, module) {
         gutterCol: undefined,
         gutterRow: undefined,
         itemSize: undefined,
+        numCols: undefined,
         transition: { curve: Easing.outBack, duration: 500 }
     };
 
@@ -33,7 +34,7 @@ define(function(require, exports, module) {
         var gutterCol = this.options.gutterCol;
         var ySpacing = itemWidth + gutterCol;
         var margin = this.options.marginSide;
-        var numCols = Math.floor((width - 2 * margin + gutterCol) / ySpacing);
+        var numCols = this.options.numCols || Math.floor((width - 2 * margin + gutterCol) / ySpacing);
         margin = (width - numCols * ySpacing + gutterCol)/2;
         return {
             numCols: numCols,
