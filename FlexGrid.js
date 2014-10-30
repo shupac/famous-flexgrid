@@ -34,7 +34,9 @@ define(function(require, exports, module) {
         var gutterCol = this.options.gutterCol;
         var ySpacing = itemWidth + gutterCol;
         var margin = this.options.marginSide;
-        var numCols = this.options.numCols || Math.floor((width - 2 * margin + gutterCol) / ySpacing);
+        var numCols = Math.floor((width - 2 * margin + gutterCol) / ySpacing);
+        if (this._items.length > numCols) numCols = this._items.length;
+        numCols = this.options.numCols || numCols;
         margin = (width - numCols * ySpacing + gutterCol)/2;
         return {
             numCols: numCols,
@@ -130,7 +132,14 @@ define(function(require, exports, module) {
             specs.push(spec);
         }
 
-        return specs;
+        return {
+            target: specs,
+            size: context.size,
+            transform: context.transform,
+            opacity: context.opacity,
+            origin: context.origin,
+            align: context.align
+        }
     };
 
     module.exports = FlexGrid;
