@@ -20,10 +20,10 @@ define(function(require, exports, module) {
     FlexGrid.prototype.constructor = FlexGrid;
 
     FlexGrid.DEFAULT_OPTIONS = {
-        marginTop: undefined,
-        marginSide: undefined,
-        gutterCol: undefined,
-        gutterRow: undefined,
+        marginTop: 0,
+        marginSide: 0,
+        gutterCol: 0,
+        gutterRow: 0,
         itemSize: undefined,
         numCols: undefined,
         transition: { curve: Easing.outBack, duration: 500 }
@@ -35,7 +35,7 @@ define(function(require, exports, module) {
         var ySpacing = itemWidth + gutterCol;
         var margin = this.options.marginSide;
         var numCols = Math.floor((width - 2 * margin + gutterCol) / ySpacing);
-        if (this._items.length > numCols) numCols = this._items.length;
+        if (this._items.length < numCols) numCols = this._items.length;
         numCols = this.options.numCols || numCols;
         margin = (width - numCols * ySpacing + gutterCol)/2;
         return {
