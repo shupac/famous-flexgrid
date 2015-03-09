@@ -26,7 +26,6 @@ define(function(require, exports, module) {
         gutterCol: 0,
         gutterRow: 0,
         itemSize: undefined,
-        numCols: undefined,
         transition: { curve: Easing.outBack, duration: 500 }
     };
 
@@ -36,8 +35,7 @@ define(function(require, exports, module) {
         var ySpacing = itemWidth + gutterCol;
         var margin = this.options.marginSide;
         var numCols = Math.floor((width - 2 * margin + gutterCol) / ySpacing);
-        if (this._items.length < numCols) numCols = this._items.length;
-        numCols = this.options.numCols || numCols;
+        numCols = Math.min(this._items.length, numCols);
         margin = (width - numCols * ySpacing + gutterCol)/2;
         return {
             numCols: numCols,
