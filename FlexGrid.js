@@ -103,9 +103,12 @@ define(function(require, exports, module) {
 
         var specs = [];
 
-        if (this._cachedWidth !== width) {
+        if (!this._items) { return specs; }
+
+        if (this._cachedWidth !== width || this._cachedItemsLength !== this._items.length) {
             var spacing = _calcSpacing.call(this, width);
             var size = this.options.itemSize;
+
             if (spacing.numCols < 2) {
                 spacing.numCols = 1;
                 spacing.marginSide = 0;
@@ -123,14 +126,20 @@ define(function(require, exports, module) {
             }
 
             this._cachedWidth = width;
+            this._cachedItemsLength = this._items.length;
         }
 
         for (var i = 0; i < this._modifiers.length; i++) {
-            var spec = this._modifiers[i].modify({
-                target: this._items[i].render()
-            });
+            if (this._items[i]) {
+                var spec = this._modifiers[i].modify({
+                    target: this._items[i].render()
+                });
 
-            specs.push(spec);
+                specs.push(spec);
+            } else {
+                this._states.splice(i, 1);
+                this._modifiers.splice(i, 1);
+            }
         }
 
         return specs;
