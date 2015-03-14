@@ -133,14 +133,8 @@ define(function(require, exports, module) {
             specs.push(spec);
         }
 
-        return {
-            target: specs,
-            size: context.size,
-            transform: context.transform,
-            opacity: context.opacity,
-            origin: context.origin,
-            align: context.align
-        }
+        return specs;
+    };
 
     FlexGrid.prototype.getSize = function() {
         if (!this._height) return;
